@@ -17,7 +17,9 @@
     <div class="viewport">
       <main>
         <section>
-          <div class="container"></div>
+          <div class="container">
+          <h1>Defer</h1>
+        </div>
         </section>
       </main>
       <footer>
@@ -30,9 +32,9 @@
               data-download-link></pre>
           </div>
           <script>
-             let userName = prompt('당신의 이름은?''이서율');
+             let userName = prompt('당신의 이름은?', '이서율');
       let isUserNameCorrect =confirm ('당신의 이름이'+userName+'이 맞습니까?')
-      if isUserNameCorrect ==true{
+      if (isUserNameCorrect ==true){
         document.getElementById('user-name-goes-here').textContent =
         '환영해요' + userName + '님';
       }
