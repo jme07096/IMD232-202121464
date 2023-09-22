@@ -11,35 +11,36 @@
     <link rel="stylesheet" href="../../../../style/style.css" />
     <link rel="stylesheet" href="../../../../plugin/prism/prism.css" />
     <script src="../../../../plugin/prism/prism.js" defer></script>
-    <script src="'./script/getUsernameNShow.js"defer></script>
+    <script src="'./script/getUsernameNShow.js" defer></script>
   </head>
   <body>
     <div class="viewport">
       <main>
         <section>
           <div class="container">
-          <h1>Defer</h1>
-        </div>
+            <h1>Defer</h1>
+          </div>
         </section>
       </main>
       <footer>
         <section>
           <div class="container">
             <h2>코드</h2>
+            <h6>index.html</h6>
             <pre
               class="line-numbers"
               data-src="./index.html"
               data-download-link></pre>
           </div>
           <script>
-             let userName = prompt('당신의 이름은?', '이서율');
-      let isUserNameCorrect =confirm ('당신의 이름이'+userName+'이 맞습니까?')
-      if (isUserNameCorrect ==true){
-        document.getElementById('user-name-goes-here').textContent =
-        '환영해요' + userName + '님';
-      }
-     
-    </script>
+            let userName = prompt('당신의 이름은?', '이서율');
+            let isUserNameCorrect = confirm(
+              '당신의 이름이' + userName + '이 맞습니까?'
+            );
+            if (isUserNameCorrect == true) {
+              document.getElementById('user-name-goes-here').textContent =
+                '환영해요' + userName + '님';
+            }
           </script>
         </section>
       </footer>
