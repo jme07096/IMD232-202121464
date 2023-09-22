@@ -1,5 +1,5 @@
 function setup() {
-  setCanvasContainer('canvas');
+  setCanvasContainer('anyname', 3, 2, true);
 
   background(255);
   noStroke();
