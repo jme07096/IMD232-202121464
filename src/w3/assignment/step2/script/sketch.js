@@ -8,7 +8,7 @@ function setup() {
   setCanvasContainer('canvas', 3, 2, true);
   background('salmon');
   pos = createVector(random(width), random(height));
-  vel = createVector();
+  vel = createVector(0, 0);
   mv = createVector();
   acc = createVector();
   posToMv = createVector();
@@ -19,28 +19,26 @@ function draw() {
   update();
   display();
 
-  strokeWeight(3);
-  translate(pos.x, pos.y);
-
   mv.set(mouseX, mouseY);
   acc.set(posToMv.x, posToMv.y);
-
+  translate(pos.x, pos.y);
   posToMv = p5.Vector.sub(mv, pos);
-  stroke('fuchsia');
+
+  strokeWeight(1);
+  stroke('white');
   line(0, 0, posToMv.x, posToMv.y);
 
   strokeWeight(2);
-
-  stroke('aqua');
-  line(0, 0, vel.x * 10, vel.y * 10);
+  stroke('fuchsia');
+  line(0, 0, vel.x * 5, vel.y * 5);
 
   acc.normalize();
   acc.mult(0.1);
 
-  strokeWeight(3);
-  stroke('yellow');
-  line(0, 0, acc.x * 0.1, acc.y * 0.1);
+  stroke('aqua');
+  line(0, 0, acc.x * 50, acc.y * 50);
 }
+
 function update() {
   vel.add(acc);
   vel.limit(5);

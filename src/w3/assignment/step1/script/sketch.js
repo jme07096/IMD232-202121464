@@ -8,10 +8,13 @@ function setup() {
   setCanvasContainer('canvas', 3, 2, true);
   background('salmon');
   pos = createVector(random(width), random(height));
-  vel = createVector();
+  vel = createVector(0, 0);
   mv = createVector();
-  acc = createVector();
+  acc = p5.Vector.random2D();
+  acc.mult(0.1);
   posToMv = createVector();
+  velocity = createVector();
+  accelertaion = createVector();
 }
 
 function draw() {
@@ -19,31 +22,27 @@ function draw() {
   update();
   checkEdges();
   disPlay();
-
-  strokeWeight(2);
-
   mv.set(mouseX, mouseY);
 
-  stroke('fuchsia');
-  line(pos.x, pos.y, mv.x, mv.y);
-
   posToMv = p5.Vector.sub(mv, pos);
-  stroke('white');
+  strokeWeight(1);
+  stroke('fuchsia');
   translate(pos.x, pos.y);
   line(0, 0, posToMv.x, posToMv.y);
 
-  stroke('aqua');
+  strokeWeight(2);
+  stroke('yellow');
   line(0, 0, vel.x * 10, vel.y * 10);
 
-  stroke('yellow');
+  stroke('aqua');
   line(0, 0, acc.x * 100, acc.y * 100);
 }
+
 function update() {
   acc = p5.Vector.random2D();
   acc.mult(1);
-
   vel.add(acc);
-  vel.limit(5);
+  vel.limit(10);
   pos.add(vel);
 }
 
@@ -59,6 +58,7 @@ function checkEdges() {
     pos.y = 0;
   }
 }
+
 function disPlay() {
   noStroke();
   fill('black');
