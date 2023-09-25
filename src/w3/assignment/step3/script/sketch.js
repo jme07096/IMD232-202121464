@@ -19,9 +19,12 @@ function draw() {
   background('salmon');
   update();
   display();
-
   mv.set(mouseX, mouseY);
-  acc.set(posToMv.x, posToMv.y);
+  Mover();
+}
+
+function Mover() {
+  acc = p5.Vector.sub(mv, pos);
   translate(pos.x, pos.y);
   posToMv = p5.Vector.sub(mv, pos);
   acc.normalize();
