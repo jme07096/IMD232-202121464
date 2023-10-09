@@ -1,4 +1,4 @@
-class MoverWithMass {
+class Mover {
   constructor(x, y, mass) {
     this.pos = createVector(x, y);
     this.vel = createVector(0, 0);
@@ -22,22 +22,23 @@ class MoverWithMass {
   }
 
   checkEdges() {
-    if (this.pos.x < 0) {
-      this.pos.x -= 0;
+    const bounce = -0.9;
+    if (this.pos.x < 0 + this.radius) {
+      this.pos.x -= 0 + this.radius;
       this.pos.x *= -1;
-      this.pos.x += 0;
-      this.vel.x *= -1;
-    } else if (this.pos.x > width - 1) {
-      this.pos.x -= width - 1;
+      this.pos.x += 0 + this.radius;
+      this.vel.x *= bounce;
+    } else if (this.pos.x > width - 1 - this.radius) {
+      this.pos.x -= width - 1 - this.radius;
       this.pos.x *= -1;
-      this.pos.x += width - 1;
-      this.vel.x *= -1;
+      this.pos.x += width - 1 - this.radius;
+      this.vel.x *= bounce;
     }
-    if (this.pos.y > height - 1) {
-      this.pos.y -= height - 1;
+    if (this.pos.y > height - 1 - this.radius) {
+      this.pos.y -= height - 1 - this.radius;
       this.pos.y *= -1;
-      this.pos.y += height - 1;
-      this.vel.y *= -1;
+      this.pos.y += height - 1 - this.radius;
+      this.vel.y *= bounce;
     }
   }
 
