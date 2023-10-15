@@ -4,12 +4,12 @@ class Body {
     this.vel = createVector(0, 0);
     this.acc = createVector(0, 0);
     this.mass = mass;
-    this.rad = radius;
+    this.rad = this.mass * random(20, 50);
   }
 
   attract(body) {
     const force = p5.Vector.sub(this.pos, body.pos);
-    const distance = force.mag();
+    const distance = constrain(force.mag(), 5, 25);
     const strength = (G * (this.mass * body.mass)) / distance ** 2;
     force.setMag(strength);
     return force;
