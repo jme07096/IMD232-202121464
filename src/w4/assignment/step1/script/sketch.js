@@ -4,6 +4,7 @@ const G = 1;
 
 function setup() {
   setCanvasContainer('canvas', 1, 1, true);
+  reset();
 }
 
 function draw() {
