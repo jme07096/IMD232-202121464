@@ -30,7 +30,7 @@ class Ball {
   }
 
   isDead() {
-    return(
+    return()
     (this.pos.x < -this.rad ||
       this.pos.x > width + this.rad ||
       this.pos.y < -this.rad ||
