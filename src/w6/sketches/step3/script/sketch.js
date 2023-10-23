@@ -15,7 +15,7 @@ function setup() {
 function draw() {
   emitter.addParticle();
   for (let i = 0; i < emitters.length; i++) {
-    emitters[i].addParticle();
+    emitters[i].addParticle(); //어레이화
   }
 
   background(255);
