@@ -1,11 +1,10 @@
 class Emitter {
   constructor(x, y) {
-    this.particles = []; //[]어레이로 만들어주기
+    this.particles = [];
     this.pos = createVector(x, y);
   }
 
   addParticle() {
-    //
     this.particles.push(new Particle(this.pos.x, this.pos.y));
   }
 
