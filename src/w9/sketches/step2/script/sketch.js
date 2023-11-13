@@ -1,127 +1,82 @@
-var Engine = Matter.Engine,
-  Render = Matter.Render,
-  Runner = Matter.Runner,
-  Body = Matter.Body,
-  Composite = Matter.Composite,
-  Composites = Matter.Composites,
-  Constraint = Matter.Constraint,
-  MouseConstraint = Matter.MouseConstraint,
-  Mouse = Matter.Mouse,
-  Bodies = Matter.Bodies;
+// // module aliases
+// var Engine = Matter.Engine,
+//   Render = Matter.Render,
+//   Runner = Matter.Runner,
+//   Bodies = Matter.Bodies,
+//   Composite = Matter.Composite;
 
-// create engine
-var engine = Engine.create(),
-  world = engine.world;
+//위에 식을 하나로 쓰기
+let { Engine, Bodies, Composite } = matter;
 
-// create renderer
-const elem = document.querySelector('#canvas');
-var render = Render.create({
-  element: elem,
-  engine: engine,
-  options: {
-    width: 800,
-    height: 600,
-    showAngleIndicator: true,
-    showCollisions: true,
-    showVelocity: true,
-  },
-});
+// 필수과정 1 - 엔진 만들기
+var engine = Engine.create();
 
-Render.run(render);
+let boxA;
+let boxB;
+let ground;
 
-// create runner
-var runner = Runner.create();
-Runner.run(runner, engine);
+function setup() {
+  setCanvasContainer('cancas', 3, 2, true);
 
-// add bodies
-var group = Body.nextGroup(true);
+  rectMode(CENTER);
 
-var ropeA = Composites.stack(100, 50, 8, 1, 10, 10, function (x, y) {
-  return Bodies.rectangle(x, y, 50, 20, { collisionFilter: { group: group } });
-});
+  //옵션과정 1 - 물체 만들어주기
+  var boxA = Bodies.rectangle(400, 200, 80, 80); //x,y, width,height,[options]순
+  var boxB = Bodies.rectangle(450, 50, 80, 80);
+  var ground = Bodies.rectangle(width / 2, height - 80, width - 200, 160, {
+    isStatic: true,
+  }); //중앙을 기준으로 상하 좌우로 커지는 사각형// module aliases
 
-Composites.chain(ropeA, 0.5, 0, -0.5, 0, {
-  stiffness: 0.8,
-  length: 2,
-  render: { type: 'line' },
-});
-Composite.add(
-  ropeA,
-  Constraint.create({
-    bodyB: ropeA.bodies[0],
-    pointB: { x: -25, y: 0 },
-    pointA: { x: ropeA.bodies[0].position.x, y: ropeA.bodies[0].position.y },
-    stiffness: 0.5,
-  })
-);
+  // 필수과정 1 - 엔진 만들기
+  var engine = Engine.create();
 
-group = Body.nextGroup(true);
+  let elem = document.querySelector('#canvas');
+  console.log(elem);
 
-var ropeB = Composites.stack(350, 50, 10, 1, 10, 10, function (x, y) {
-  return Bodies.circle(x, y, 20, { collisionFilter: { group: group } });
-});
-
-Composites.chain(ropeB, 0.5, 0, -0.5, 0, {
-  stiffness: 0.8,
-  length: 2,
-  render: { type: 'line' },
-});
-Composite.add(
-  ropeB,
-  Constraint.create({
-    bodyB: ropeB.bodies[0],
-    pointB: { x: -20, y: 0 },
-    pointA: { x: ropeB.bodies[0].position.x, y: ropeB.bodies[0].position.y },
-    stiffness: 0.5,
-  })
-);
-
-group = Body.nextGroup(true);
-
-var ropeC = Composites.stack(600, 50, 13, 1, 10, 10, function (x, y) {
-  return Bodies.rectangle(x - 20, y, 50, 20, {
-    collisionFilter: { group: group },
-    chamfer: 5,
-  });
-});
-
-Composites.chain(ropeC, 0.3, 0, -0.3, 0, { stiffness: 1, length: 0 });
-Composite.add(
-  ropeC,
-  Constraint.create({
-    bodyB: ropeC.bodies[0],
-    pointB: { x: -20, y: 0 },
-    pointA: { x: ropeC.bodies[0].position.x, y: ropeC.bodies[0].position.y },
-    stiffness: 0.5,
-  })
-);
-
-Composite.add(world, [
-  ropeA,
-  ropeB,
-  ropeC,
-  Bodies.rectangle(400, 600, 1200, 50.5, { isStatic: true }),
-]);
-
-// add mouse control
-var mouse = Mouse.create(render.canvas),
-  mouseConstraint = MouseConstraint.create(engine, {
-    mouse: mouse,
-    constraint: {
-      stiffness: 0.2,
-      render: {
-        visible: false,
-      },
+  // 필수과정 2 - 렌더러 만들기
+  var render = Render.create({
+    element: elem,
+    engine: engine,
+    options: {
+      width: elem.clientWidth,
+      height: (elem.clientWidth / 4) * 3,
     },
   });
 
-Composite.add(world, mouseConstraint);
+  //옵션과정 1 - 물체 만들어주기
+  var boxA = Bodies.rectangle(400, 200, 80, 80); //x,y, width,height,[options]순
+  var boxB = Bodies.rectangle(450, 50, 80, 80);
+  var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true }); //중앙을 기준으로 상하 좌우로 커지는 사각형
+  //isStatis: true는 고정시키는 기능.
+  // add all of the bodies to the world
+  Composite.add(engine.world, [boxA, boxB, ground]);
 
-// keep the mouse in sync with rendering
-render.mouse = mouse;
+  // 필수과정 3 - 그림그리기
+  Render.run(render);
 
-// fit the render viewport to the scene
-Render.lookAt(render, {
-  min: { x: 0, y: 0 },
-  max: { x: 700, y: 600 },
-});
+  // 필수과정 4 - 자동으로 계속 동작하게 해주는 장치만들기
+  var runner = Runner.create();
+
+  // 필수과정 5- 자동 뺑뻉이에게 엔진을 등록해서 실행하게 만듦.
+  Runner.run(runner, engine);
+
+  //isStatis: true는 고정시키는 기능.
+  //옵션과정2- 물체를 세계에 추가하기
+  // Composite.add(engine.world, [boxA, boxB, ground]);
+  Composite.add(engine.world, boxA);
+  Composite.add(engine.world, boxB);
+  Composite.add(engine.world, ground);
+}
+function draw() {
+  Engine.update(engine);
+  background(255);
+}
+
+// 필수과정 3 - 그림그리기
+Render.run(render);
+
+// 필수과정 4 - 자동으로 계속 동작하게 해주는 장치만들기
+var runner = Runner.create();
+
+// 필수과정 5- 자동 뺑뻉이에게 엔진을 등록해서 실행하게 만듦.
+Runner.run(runner, engine);
