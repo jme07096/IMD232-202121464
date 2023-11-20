@@ -104,16 +104,17 @@ Composite.add(world, [
 ]);
 
 // add mouse control
-var mouse = Mouse.create(render.canvas),
-  mouseConstraint = MouseConstraint.create(engine, {
-    mouse: mouse,
-    constraint: {
-      stiffness: 0.2,
-      render: {
-        visible: false,
-      },
+let mouse = Mouse.create(canvas.elt);
+mouse.pixelRatio = (pixelDensity() * width) / oWidth;
+mouseConstraint = MouseConstraint.create(engine, {
+  mouse: mouse,
+  constraint: {
+    stiffness: 0.2,
+    render: {
+      visible: false,
     },
-  });
+  },
+});
 
 Composite.add(world, mouseConstraint);
 
