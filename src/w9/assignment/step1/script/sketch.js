@@ -1,4 +1,4 @@
-// 변수 생성
+// 변수 만들기
 const {
   Engine,
   Render,
@@ -24,7 +24,7 @@ const engine = Engine.create(),
 //러너 만들기
 const runner = Runner.create();
 Runner.run(runner, engine);
-//로프 3개, 마우스, 캔버스 사이즈  변수 생성
+//로프 3개, 마우스, 캔버스 사이즈  변수 만들기
 let ropeA;
 let ropeB;
 let ropeC;
