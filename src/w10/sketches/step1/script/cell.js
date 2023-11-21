@@ -1,22 +1,22 @@
 class Cell {
-  constructor(X, Y, W, H, state) {
-    this.X = X;
-    this.Y = Y;
-    this.W = W;
-    this.H = H;
-    this.state = false; // 크고 키는 ..
+  constructor(x, y, w, h, state) {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+    this.state = state;
   }
 
   display() {
     push();
-    translate(this.X, this.Y);
-    if (this.state) {
-      fill(32);
-    } else {
-      fill(255);
-    }
+    translate(this.x, this.y);
+    // if (this.state) {
+    //   fill(32);
+    // } else {
+    //   fill(255);
+    // }
     fill(this.state ? 32 : 255);
-    rect(0, 0, this.W, this.H);
+    rect(0, 0, this.w, this.h);
     pop();
   }
 }
